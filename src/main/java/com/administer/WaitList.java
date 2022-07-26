@@ -6,10 +6,7 @@ import javafx.scene.control.ListView;
 
 /**Class handle the waiting list in the view of FXML.*/
 public class WaitList {
-    /**
-     * The component in the View
-     */
-    private final ListView<String> timeListView;
+
     /**
      * The list inside the component
      */
@@ -20,8 +17,7 @@ public class WaitList {
     private String actualValue;
 
     public WaitList() {
-        listTimer = FXCollections.emptyObservableList();
-        timeListView = new ListView(listTimer);
+        listTimer = FXCollections.observableArrayList();
     }
 
     /**
@@ -43,6 +39,11 @@ public class WaitList {
         }
         listTimer.remove(0, 1);
         actualValue = listTimer.get(0);
+    }
+
+    /** Returns true if this waiting list contains no elements. */
+    public boolean isEmpty(){
+        return listTimer.isEmpty();
     }
 
 }

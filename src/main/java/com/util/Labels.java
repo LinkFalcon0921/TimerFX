@@ -1,16 +1,22 @@
-package com.administer;
+package com.util;
 
+import com.worker.Clockers;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 
-/**Class for save the labels and set the values*/
-public class ListTimerQueue {
-    final private Label minLabel;
-    final private Label segLabel;
+/**
+ * Class for save the labels and set the values
+ */
+public class Labels {
+    private final Label minLabel;
+    private final Label segLabel;
 
-    public ListTimerQueue(Label minLabel, Label segLabel) {
+    public Labels(Label minLabel, Label segLabel) {
         this.minLabel = minLabel;
         this.segLabel = segLabel;
     }
+
 
     public void setMinutes(Integer minutes) {
         this.minLabel.setText(minutes.toString());

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Counter implements ICounters {
 
-    private AtomicInteger volatileSeg, volatileMin;
+    private final AtomicInteger volatileSeg, volatileMin;
 
     public Counter(Integer min, Integer seg) {
         volatileMin = new AtomicInteger(min);
@@ -18,12 +18,12 @@ public class Counter implements ICounters {
 
     @Override
     public Integer getSegs() {
-        return volatileSeg.get();
+        return this.volatileSeg.get();
     }
 
     @Override
     public Integer getMins() {
-        return volatileMin.get();
+        return this.volatileMin.get();
     }
 
     /**
@@ -33,17 +33,22 @@ public class Counter implements ICounters {
 
         volatileSeg.updateAndGet(value -> {
             if (value-- < 0) {
-                volatileMin.decrementAndGet();
-                value = 59;
+                if(this.volatileMin.get() > 0){
+                    this.volatileMin.decrementAndGet();
+                    value = 59;
+                }
             }
+
             return value;
         });
 
     }
 
-/**Verify is the {@link Counter} ends.*/
+    /**
+     * Verify is the {@link Counter} ends.
+     */
     public boolean isEnded() {
-        return (getMins() == 0 && getMins() == 0);
+        return (getMins() == 0 && getSegs() == 0);
     }
 
     @Override
