@@ -30,7 +30,7 @@ public class Counter implements ICounters {
     public void reduce() {
 
         volatileSeg.updateAndGet(value -> {
-            if (value-- < 0) {
+            if (--value < 0) {
                 if(this.getMins() > 0){
                     this.volatileMin.decrementAndGet();
                     value = 59;

@@ -1,4 +1,4 @@
-package com.TimerFX.builders.javafx.view;
+package com.TimerFX.builders;
 
 import com.TimerFX.controllers.ClockChildController;
 import javafx.application.Platform;
@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -19,7 +18,7 @@ public class ClockView {
     public final Double X_LOCATION_SCREEN = 210D;
     public final Double Y_LOCATION_SCREEN = 160D;
 
-    private Stage mainStage;
+    private final Stage mainStage;
 
     private ClockChildController controller;
     private final static String FILE_LOCATION = "/com/TimerFX/fmls/ClockChildView.fxml";

@@ -16,7 +16,15 @@ public class Labels {
 
 
     public void setMinutes(Integer minutes) {
-        this.minLabel.setText(minutes.toString());
+        String testMinutes = minutes.toString();
+        this.minLabel.setText(getStringFormat(testMinutes));
+    }
+
+    private String getStringFormat(String testMinutes) {
+        return String.format("%s%s",
+                testMinutes.length() == 1 ? "0" : "",
+                testMinutes
+        );
     }
 
     public void setSeconds(Integer seconds) {

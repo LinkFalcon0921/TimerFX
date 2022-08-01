@@ -1,15 +1,23 @@
 package com.TimerFX.administer;
 
+import com.TimerFX.notification.facade.NotificationHandler;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.GridPane;
+
+import java.util.Objects;
 
 /**
  * Class handle the waiting list in the view of FXML.
  */
 public class WaitList {
+
+
+    /**
+     * System Notification
+     */
+    private final NotificationHandler notificationHandler;
 
     /**
      * The list inside the component
@@ -20,14 +28,15 @@ public class WaitList {
      * Wait List component view
      */
     private final GridPane waitList;
-    /*
-     * The current value
+    /**
+     * Clock to notify
      */
-//    private String actualValue;
+    private String clockTime;
 
     public WaitList(GridPane waitList, ObservableList<String> list) {
         this.waitList = waitList;
         this.listTimer = list;
+        this.notificationHandler = NotificationHandler.getInstance();
         applyListenerView();
     }
 
@@ -41,15 +50,26 @@ public class WaitList {
         listTimer.add(timer);
     }
 
+    private void notifyPoll() {
+        if (Objects.isNull(this.clockTime)) {
+            return;
+        }
+
+        this.notificationHandler.showAdviceNotification(this.clockTime);
+        this.clockTime = null;
+    }
+
     /**
      * Step to the next timer in the list, if exists.
      */
     public void poll() {
         Platform.runLater(() -> {
+            this.notifyPoll();
             if (this.isEmpty()) {
                 return;
             }
-            this.listTimer.remove(this.listTimer.get(0));
+            clockTime = this.listTimer.get(0);
+            this.listTimer.remove(clockTime);
         });
     }
 
@@ -60,9 +80,10 @@ public class WaitList {
         return this.listTimer.isEmpty();
     }
 
-    private void applyListenerView(){
-    //  Permuted : list has a size differ to 0.
+    private void applyListenerView() {
+        //  Permuted : list has a size differ to 0.
         this.listTimer.addListener((ListChangeListener<String>) change -> this.waitList.setVisible(!this.isEmpty()));
     }
+
 
 }

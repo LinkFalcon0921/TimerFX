@@ -2,7 +2,7 @@ package com.TimerFX.administer;
 
 import com.TimerFX.builders.ClockerBuilder;
 import com.TimerFX.builders.TimerBuilder;
-import com.TimerFX.builders.javafx.view.ClockView;
+import com.TimerFX.builders.ClockView;
 import com.TimerFX.util.Labels;
 import com.TimerFX.util.timer.TimerDefaultTask;
 import com.TimerFX.util.timer.TimerSchedule;
